@@ -83,7 +83,7 @@ def convert_text():
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            model="moonshotai/kimi-k2-instruct-0905", # PRD에 명시된 모델 사용
+            model="meta-llama/llama-4-scout-17b-16e-instruct", # PRD에 명시된 모델 사용
             temperature=0.7, # 창의성 조절
             max_tokens=500, # 최대 응답 길이 제한
         )
