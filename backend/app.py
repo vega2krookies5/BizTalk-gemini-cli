@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template # Added render_template
 from flask_cors import CORS
 from groq import Groq
 from dotenv import load_dotenv
@@ -7,7 +7,12 @@ from dotenv import load_dotenv
 # .env 파일에서 환경 변수 로드
 load_dotenv()
 
-app = Flask(__name__)
+# Flask 애플리케이션 초기화.
+# 'frontend' 디렉토리를 static 및 template 폴더로 지정하여 정적 파일과 HTML 템플릿을 제공합니다.
+app = Flask(__name__,
+            static_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend')),
+            template_folder=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend')),
+            static_url_path='/')
 # 프론트엔드からの 모든 출처에서의 요청을 허용
 CORS(app) 
 
@@ -46,7 +51,10 @@ def convert_text():
 
 @app.route('/')
 def index():
-    return "BizTone Converter 백엔드 서버가 실행 중입니다."
+    """
+    루트 경로 요청 시 frontend/index.html 파일을 렌더링합니다.
+    """
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
